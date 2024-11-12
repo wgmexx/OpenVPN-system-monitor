@@ -1,0 +1,339 @@
+body {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    color: #e0e0e0;
+    overflow: auto;
+    background: linear-gradient(315deg, rgba(50, 50, 50, 1) 3%, rgba(100, 100, 100, 1) 38%, rgba(200, 200, 200, 1) 68%, rgba(150, 150, 150, 1) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.wave {
+    background: rgb(255 255 255 / 25%);
+    border-radius: 1000% 1000% 0 0;
+    position: fixed;
+    width: 200%;
+    height: 12em;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.wave:nth-of-type(2) {
+    bottom: -1.25em;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.8;
+}
+
+.wave:nth-of-type(3) {
+    bottom: -2.5em;
+    animation: wave 20s -1s reverse infinite;
+    opacity: 0.9;
+}
+
+@keyframes wave {
+    2% {
+        transform: translateX(1);
+    }
+
+    25% {
+        transform: translateX(-25%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    75% {
+        transform: translateX(-25%);
+    }
+
+    100% {
+        transform: translateX(1);
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit browsers */
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* Adapt to smaller screens */
+}
+
+header img {
+    margin-right: 15px;
+}
+
+/* Ping */
+#ping-block {
+    margin-top: 20px;
+    font-size: 15px;
+    text-align: center; /* Center text */
+}
+
+#pingChart {
+    max-width: 100%; /* Chart doesn't exceed container limits */
+    height: 250px; /* Fixed height for better display */
+    margin: 0 auto; /* Center chart */
+    border-radius: 12px; /* Corner radius */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Shadow for chart */
+    background-color: #1e1e1e; /* Chart background color */
+}
+
+/* Info Blocks */
+.info-blocks {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-wrap: wrap; /* Adapt to smaller screens */
+}
+
+.info-block {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    padding: 10px;
+    border-radius: 8px;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.info-block:last-child {
+    margin-right: 0;
+}
+
+/* Status Indicator */
+.indicator {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 10px;
+    animation: pulse 1.5s infinite ease-in-out; /* Blinking animation */
+}
+
+/* Green and red colors for indicator */
+.status-indicator.green {
+    background-color: green;
+}
+
+.status-indicator.red {
+    background-color: red;
+}
+
+/* Blinking animation */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(0.9); /* Initial size */
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.0); 
+    }
+    100% {
+        opacity: 1;
+        transform: scale(0.9); /* Return to initial size */
+    }
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    background-color: #1e1e1e;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+th, td {
+    border: 1px solid #333;
+    padding: 5px;
+    text-align: left;
+}
+
+th {
+    background-color: #1f1f1f;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+th:hover {
+    background-color: #00A591;
+}
+
+tr:nth-child(even) {
+    background-color: #242424;
+}
+
+/* Charts */
+#charts {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-wrap: wrap; /* Adapt to smaller screens */
+}
+
+canvas {
+    max-width: 320px;
+    width: 100%; /* Charts adapt to any screen width */
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsiveness for mobile devices */
+@media (max-width: 768px) {
+    body {
+        padding: 0 10px; /* Smaller padding for mobile devices */
+    }
+    
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    header img {
+        width: 80px; /* Reduce logo size on smaller screens */
+    }
+    
+    .info-blocks {
+        flex-direction: column; /* On small screens, blocks will stack */
+    }
+    
+    .info-block {
+        margin-right: 0;
+        margin-bottom: 10px; /* Spacing between blocks on small screens */
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    
+    table {
+        font-size: 0.9em;
+    }
+
+    #charts {
+        flex-direction: column; /* Column layout on small screens */
+    }
+
+    canvas {
+        max-width: 100%; /* Charts take full width on small screens */
+    }
+}
+
+/* Additional responsiveness for very small screens */
+@media (max-width: 480px) {
+    body {
+        margin: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+
+    th, td {
+        font-size: 0.8em;
+    }
+
+    .info-block {
+        padding: 8px;
+    }
+}
+
+/* Ping */
+#ping-block {
+    margin-top: 10px;
+}
+.btn {
+    background-color: #28a745; /* Зеленый цвет */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 20px; /* Отступ слева */
+}
+
+.btn:hover {
+    background-color: #218838; /* Темно-зеленый при наведении */
+}
+        /* Модальное окно */
+        .modal {
+            display: none; /* Скрыто по умолчанию */
+            position: fixed; /* Остается на месте */
+            z-index: 1000; /* На переднем плане */
+            left: 0;
+            top: 0;
+            width: 100%; /* Полная ширина */
+            height: 100%; /* Полная высота */
+            overflow: auto; /* Позволяет прокрутку, если необходимо */
+            background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+        }
+
+        /* Содержимое модального окна */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* Центрируем по вертикали */
+            padding: 0; /* Убираем отступы */
+            border: 1px solid #888;
+            width: 80%; /* Ширина модального окна */
+            max-width: 800px; /* Максимальная ширина */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative; /* Относительное позиционирование для внутренних элементов */
+            height: 90%; /* Высота модального окна */
+        }
+
+        /* Кнопка закрытия */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Стиль для iframe */
+        iframe {
+            width: 100%; /* Ширина iframe равна 100% */
+            height: 100%; /* Высота iframe равна 100% */
+            border: none; /* Убираем рамку */
+            border-radius: 4px; /* Закругляем углы */
+        }

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenVPN User Management</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        #userList {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+            background-color: #ffffff;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        #userList h3 {
+            margin: 0;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px 4px 0 0;
+        }
+
+        #userList ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #userList li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #userList li:last-child {
+            border-bottom: none;
+        }
+
+        #userList a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        #userList a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        async function addUser() {
+            const username = document.getElementById("username").value;
+            const response = await fetch("/add_user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username: username })
+            });
+
+            const result = await response.json();
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `<p>Status: ${result.status}</p><p>Output: ${result.output || result.message}</p>`;
+            if (result.status === "success") {
+                loadUsers();  // Загрузить пользователей после успешного добавления
+            }
+        }
+
+        async function loadUsers() {
+            const response = await fetch("/list_users");
+            const result = await response.json();
+            const userListDiv = document.getElementById("userList");
+            if (result.status === "success") {
+                userListDiv.innerHTML = "<h3>Список пользователей:</h3><ul>";
+                result.files.forEach(file => {
+                    userListDiv.innerHTML += `<li>${file} <a href="/download/${file}">Скачать</a></li>`;
+                });
+
+                userListDiv.innerHTML += "</ul>";
+            } else {
+                userListDiv.innerHTML = `<p>${result.message}</p>`;
+            }
+        }
+
+        window.onload = function() {
+            loadUsers(); // Загрузить пользователей при загрузке страницы
+        };
+    </script>
+</head>
+<body>
+    <h1>Управление пользователями OpenVPN</h1>
+    <div>
+        <input type="text" id="username" placeholder="Введите имя пользователя" required>
+        <button onclick="addUser()">Добавить пользователя</button>
+    </div>
+    <div id="result"></div>
+    <div id="userList">Список загружается...</div>
+</body>
+</html>

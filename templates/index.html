@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Системный монитор</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="static/styles.css?ver=12346">
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+	<script>
+        function openUserManagement() {
+            const popup = window.open("/add_user_page", "Управление пользователями OpenVPN", "width=600,height=400");
+            popup.focus();
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+		<div class="wave"></div>
+		<div class="wave"></div>
+		<div class="wave"></div>
+
+    <header>
+        <img src="static/logo.svg" alt="OpenVPN Logo" width="100px"> 
+        <h1>Системный монитор OpenVPN</h1>    
+		<button onclick="openUserManagement()" class="btn">+ Добавить пользователя</button> <!-- Кнопка для открытия управления пользователями -->
+
+    </header>
+
+    <div class="info-blocks">
+        <div class="indicator status-indicator red"></div>
+        <div class="info-block" id="openvpn-uptime"></div>
+        <div class="info-block" id="last-updated"></div>
+    </div>
+
+    <table id="clients-table">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Имя пользователя</th>
+                <th onclick="sortTable(1)">Настоящий адрес</th>
+                <th onclick="sortTable(2)">Получено (ГБ)</th>
+                <th onclick="sortTable(3)">Отправлено (ГБ)</th>
+                <th onclick="sortTable(4)">Подключено с</th>
+                <th onclick="sortTable(5)">Длительность подключения</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Данные будут добавлены здесь -->
+        </tbody>
+    </table>
+
+    <div id="charts">
+        <div>
+            <canvas id="cpuChart"></canvas>
+            <p>Загрузка CPU: <span id="cpu-percent"></span>%</p>
+        </div>
+        <div>
+            <canvas id="ramChart"></canvas>
+            <p>Использование RAM: <span id="ram-percent"></span>%</p>
+        </div>
+        <div>
+            <canvas id="diskChart"></canvas>
+            <p>Использование диска: <span id="disk-percent"></span>%</p>
+        </div>
+    </div>
+
+    <div id="ping-block">
+        <p>Пинг: <span id="ping-value"></span> мс</p>
+        <canvas id="pingChart" width="300" height="150"></canvas>
+    </div>
+
+    <h2>История подключений</h2>
+    <table id="history-table">
+        <thead>
+            <tr>
+                <th onclick="sortHistoryTable(0)">Имя пользователя</th>
+                <th onclick="sortHistoryTable(1)">Всего получено (ГБ)</th>
+                <th onclick="sortHistoryTable(2)">Всего отправлено (ГБ)</th>
+                <th onclick="sortHistoryTable(3)">Время последнего отключения</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Данные будут добавлены здесь -->
+        </tbody>
+    </table>
+    <script src="static/script.js?ver=12346" defer></script>
+</body>
+</html>
